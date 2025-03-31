@@ -1,6 +1,7 @@
 const express = require('express');
 
 const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
 const expressLayouts = require('express-ejs-layouts');
 
@@ -20,6 +21,15 @@ app.use(
     },
   })
 );
+
+const limiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 100, // Limit each IP to 100 requests per 5 minutes
+  message: { error: "Too many requests, please try again later." },
+  headers: true,
+});
+
+app.use(limiter);
 
 const port = process.env.PORT || 3000;
 

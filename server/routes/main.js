@@ -93,6 +93,9 @@ router.get('/check', async (req, res) => {
   if (!bride || !groom) {
     return res.status(400).json({ error: 'Missing bride or groom' });
   }
+  if (!BABYNAMES.girls.includes(bride) || !BABYNAMES.boys.includes(groom)) {
+    return res.status(400).json({ error: 'Invalid bride or groom name' });
+  }
   const urlList = getUrlList(bride, groom);
   const result = await getExistingUrl(urlList);
   res.json({ result });
