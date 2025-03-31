@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const groom = groomEl.textContent;
 
 
-    statusEl.textContent = `Searching for ${bride} & ${groom}...`;
+    statusEl.textContent = `Searching for ${bride} and ${groom}...`;
     actionButton.disabled = true;
     headerText.style.display = 'block'; 
     statusEl.style['font-size']= '1.2em'
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (data.result) {
         resultContainer.innerHTML = `<a href="${data.result}" target="_blank">${data.result}</a>`;
-        statusEl.textContent = `${bride} & ${groom} are getting married!`;
+        statusEl.textContent = `${bride} and ${groom} are getting married!`;
         headerText.style.display = 'none';
         statusEl.style['font-size']= '1.5em'
         statusEl.style['font-weight']= 'bold'
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         actionButton.disabled = false;
         loadingIndicator.style.display = 'none';
       } else {
-        showNoMatchAlert(`${bride} & ${groom} are not getting married :(`);
+        showNoMatchAlert(`${bride} and ${groom} are not getting married :(`);
         fetchNewCouple().then(() => checkWebsite());
       }
     } catch (error) {

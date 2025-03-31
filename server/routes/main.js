@@ -31,8 +31,7 @@ const urlExists = async (url) => {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
       },
       maxRedirects: 5,
-      // timeout: 5000
-      timeout:20000
+      timeout: 5000
     });
 
     const finalUrl = response.request.res.responseUrl || url;
@@ -74,7 +73,7 @@ const findWorkingCoupleSite = async (i = 0) => {
     }
     return validUrl 
       ? { bride, groom, result: validUrl } 
-      :     console.log(`💔 No luck with ${bride} & ${groom}`) || findWorkingCoupleSite( i+1 )
+      :     console.log(`💔 No luck with ${bride} and ${groom}`) || findWorkingCoupleSite( i+1 )
 }
 
 const getRandomCouple = () => {

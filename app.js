@@ -27,6 +27,9 @@ const limiter = rateLimit({
   max: 100, // Limit each IP to 100 requests per 5 minutes
   message: { error: "Too many requests, please try again later." },
   headers: true,
+  keyGenerator: function (req) {
+    return req.headers["x-forwarded-for"] || req.connection.remoteAddress; 
+}
 });
 
 app.use(limiter);
