@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= locals.title  %></title>
+  <meta name="description" content="<%= locals.description  %>">
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="text/javascript" defer src="/js/script.js"></script>
+  <script src="https://pixijs.download/release/pixi.js"></script>
+  <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico"/>
+
+</head>
+<body>
+    <div id="loading-screen">
+      <div class="spinner">❤️</div>
+    </div>
+    <main class ="main">
+      <%- body  %>
+    </main>
+    <script type="module" src="/js/physics.js"></script>
+</div>
+</body>
+</html>

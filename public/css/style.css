@@ -1,0 +1,193 @@
+body {
+    font-family: 'Comic Sans MS', cursive;
+    background: #ffe6f2;
+    text-align: center;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h3 {
+    color: #ff69b4;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.heart {
+    animation: spin 2s linear infinite;
+    display: none;
+    font-size: 3rem;
+    margin: 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.search-button {
+    background: #ff69b4;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin: 0.5rem;
+    transition: transform 0.3s;
+    touch-action: manipulation;
+}
+
+.search-button:hover {
+    transform: scale(1.1);
+    background: #ff1493;
+}
+
+.result-box {
+    margin: 2rem auto;
+    padding: 1rem;
+    border: 3px dashed #ff69b4;
+    border-radius: 15px;
+    max-width: 500px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.status-text {
+    font-size: 1.2rem;
+    margin: 1rem;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    vertical-align: middle;
+    display: table;
+    margin: auto;
+  }
+  
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    touch-action: none;
+  }
+  
+  .main {
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .main * {
+    pointer-events: auto;
+  }
+
+  .loading-indicator {
+    font-size: 2rem;
+    display: inline-block;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Initially, statusEl is fully opaque */
+#status {
+    opacity: 1;
+    transition: opacity 2s ease;
+  }
+  
+  .fade-out {
+    opacity: 0;
+  }
+
+  .alert {
+    position: fixed;
+    background: rgba(255, 223, 186, 0.9);
+    color: #555;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 1rem;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  
+  /* Hidden state */
+  .alert.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+  }
+  
+  /* Full-page loading overlay */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000; /* Make sure it appears on top */
+    background-color: #ffb6c1;
+  }
+  
+  /* Spinner with a spinning heart */
+  .spinner {
+    font-size: 3rem;
+    animation: spin 2s linear infinite;
+  }
+  
+  /* Keyframes for the spinning animation */
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .page-info {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center; 
+    z-index: 10;
+    font-size: .9rem;
+}
+
+  .info-link{
+    color:#c26e98;
+    background:none;
+    border:none;
+  }
+  
+  info:hover {
+    color: #b992a6;
+    background:none;
+    border:none;
+  }
+
+  .info-response{
+    font-size: .9rem;
+    color:#b992a6;
+  }
