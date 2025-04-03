@@ -1,6 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital@0;1&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+/* Color Constants */
+:root {
+  --primary-pink: #2251c7;
+  --secondary-pink: #18388a;
+  --alert-bg: rgba(255, 237, 186, 0.9);
+  --alert-text: #000000;
+  --loading-bg: #f8f8f5;
+  --info-link: #2251c7;
+  --info-link-hover: #18388a;
+  --white: #ffffff;
+}
+
+/* Global Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  vertical-align: middle;
+  display: table;
+  margin: auto;
+}
+
 body {
-  font-family: 'Trebuchet MS';
-  background: #ffe6f2;
+  font-family: "Source Code Pro";
   text-align: center;
   padding: 2rem;
   max-width: 800px;
@@ -9,27 +34,28 @@ body {
 }
 
 h3 {
-  color: #ff69b4;
+  color: var(--primary-pink);
   font-size: 2rem;
   margin-bottom: 2rem;
 }
 
-.heart {
-  animation: spin 2s linear infinite;
-  display: none;
-  font-size: 3rem;
-  margin: 1rem;
+img {
+  max-width: 60%;
+  height: auto;
+  width: auto;
 }
 
+/* Animations */
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
+/* Utility Classes */
 .search-button {
-  background: #ff69b4;
-  color: white;
-  font-family: 'Trebuchet MS';
+  background: var(--primary-pink);
+  color: var(--white);
+  font-family: "Source Code Pro";
   border: none;
   padding: 1rem 2rem;
   border-radius: 25px;
@@ -43,13 +69,13 @@ h3 {
 
 .search-button:hover {
   transform: scale(1.1);
-  background: #ff1493;
+  background: var(--secondary-pink);
 }
 
 .result-box {
   margin: 2rem auto;
   padding: 1rem;
-  border: 3px dashed #ff69b4;
+  border: 3px dashed var(--primary-pink);
   border-radius: 15px;
   max-width: 500px;
   z-index: 10;
@@ -65,17 +91,7 @@ a {
   z-index: 10;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  vertical-align: middle;
-  display: table;
-  margin: auto;
-}
-
+/* Canvas and Main */
 canvas {
   position: fixed;
   top: 0;
@@ -94,22 +110,19 @@ canvas {
   pointer-events: auto;
 }
 
+/* Loading and Spinner */
 .loading-indicator {
   font-size: 2rem;
   display: inline-block;
   animation: spin 1s linear infinite;
 }
 
-@keyframes spin {
-  from {
-      transform: rotate(0deg);
-  }
-  to {
-      transform: rotate(360deg);
-  }
+.spinner {
+  font-size: 3rem;
+  animation: spin 2s linear infinite;
 }
 
-/* Initially, statusEl is fully opaque */
+/* Status and Fade-out */
 #status {
   opacity: 1;
   transition: opacity 2s ease;
@@ -119,10 +132,11 @@ canvas {
   opacity: 0;
 }
 
+/* Alert */
 .alert {
   position: fixed;
-  background: rgba(255, 223, 186, 0.9);
-  color: #555;
+  background: var(--alert-bg);
+  color: var(--alert-text);
   padding: 10px 15px;
   border-radius: 10px;
   font-size: 1rem;
@@ -132,44 +146,28 @@ canvas {
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-/* Hidden state */
 .alert.hidden {
   opacity: 0;
   transform: scale(0.8);
   pointer-events: none;
 }
 
-/* Full-page loading overlay */
+/* Loading Screen */
 #loading-screen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: #fff;
+  background: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  background-color: #ffb6c1;
+  background-color: var(--loading-bg);
 }
 
-/* Spinner with a spinning heart */
-.spinner {
-  font-size: 3rem;
-  animation: spin 2s linear infinite;
-}
-
-/* Keyframes for the spinning animation */
-@keyframes spin {
-  from {
-      transform: rotate(0deg);
-  }
-  to {
-      transform: rotate(360deg);
-  }
-}
-
+/* Page Info */
 .page-info {
   position: fixed;
   bottom: 20px;
@@ -177,70 +175,70 @@ canvas {
   right: 0;
   text-align: center; 
   z-index: 10;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .info-link {
-  color: #c26e98;
+  color: var(--info-link);
   background: none;
   border: none;
 }
 
 .info-link:hover {
-  color: #b992a6;
+  color: var(--info-link-hover);
   background: none;
   border: none;
 }
 
 .info-response {
-  font-size: .9rem;
-  color: #b992a6;
+  font-size: 0.9rem;
+  color: var(--info-link-hover);
 }
 
 /* Mobile Styles */
 @media (max-width: 600px) {
   body {
-      padding: 1rem;
-      overflow-x: hidden; /* Prevents horizontal scrolling */
-      z-index: 1;
+    padding: 1rem;
+    overflow-x: hidden;
+    z-index: 1;
   }
 
   h3 {
-      font-size: 1.5rem;
+    font-size: 1.5rem;
   }
 
   .search-button {
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
   }
 
   .result-box {
-      margin: 1rem auto;
-      padding: 1rem;
-      width: calc(100% - 2rem); /* Ensures padding from screen edges */
-      max-width: 500px; /* Prevents it from getting too wide */
-      box-sizing: border-box; /* Ensures padding is included in width */
+    margin: 1rem auto;
+    padding: 1rem;
+    width: calc(100% - 2rem);
+    max-width: 500px;
+    box-sizing: border-box;
   }
 
   .status-text {
-      font-size: 1rem;
+    font-size: 1rem;
   }
 
   .loading-indicator {
-      font-size: 1.5rem;
+    font-size: 1.5rem;
   }
 
   .alert {
-      z-index: 0;
-      font-size: 0.9rem;
-      padding: 8px 12px;
+    z-index: 0;
+    font-size: 0.9rem;
+    padding: 8px 12px;
   }
 
   .page-info {
-      font-size: 0.8rem;
+    font-size: 0.8rem;
   }
 
   .spinner {
-      font-size: 2.5rem;
+    font-size: 2.5rem;
   }
 }

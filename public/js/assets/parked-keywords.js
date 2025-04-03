@@ -8,7 +8,8 @@ const PARKED_KEYWORDS = [
   'parked free',
   'domain for sale',
   'this domain is parked',
-  'available for purchase'
+  'available for purchase',
+  '/lander' //GoDaddy Lander
 ];
 
 module.exports = PARKED_KEYWORDS

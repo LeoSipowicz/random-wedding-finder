@@ -10,7 +10,7 @@ export default async function run_simulation() {
     const sprites = [];
 
     const app = new PIXI.Application();
-    await app.init({ background: '#FFB6C1', resizeTo: window });
+    await app.init({ background: '#f8f8f5', resizeTo: window });
     document.body.appendChild(app.canvas);
 
     const createWallsAndGround = () => {

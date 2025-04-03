@@ -12,7 +12,7 @@ const isRegistrar = (url) => (
     REGISTRAR_DOMAINS.includes(new URL(url).hostname)
 )
 
-const parkedPatterns = PARKED_KEYWORDS.map(keyword => new RegExp(`\\b${keyword}\\b`, 'i'));
+const parkedPatterns = PARKED_KEYWORDS.map(keyword => new RegExp(`${keyword}`, 'ui'));
 const isParkedPage = (html) => {
 
   const text = html
@@ -108,6 +108,13 @@ router.get('/check', async (req, res) => {
     console.log(err);
     res.status(500).json({ error: 'Error finding wedding site' });
   }
+});
+
+router.get('/testurl', async (req, res) => {
+    const { url } = req.query;
+    var exists = await urlExists(url)
+    console.log(exists)
+
 });
 
 router.get('', (req, res) => {
