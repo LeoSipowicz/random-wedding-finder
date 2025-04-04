@@ -27,21 +27,21 @@ document.addEventListener('DOMContentLoaded', () => {
     alertElem.className = 'alert';
     alertElem.textContent = m;
   
-    const randomX = Math.random() * (window.innerWidth - 200);
-    const randomY = Math.random() * (window.innerHeight - 100);
-    alertElem.style.left = `${randomX}px`;
-    alertElem.style.top = `${randomY}px`;
+    const x = Math.random() * (window.innerWidth - 200);
+    const y = window.innerHeight / 2 + Math.random() * (window.innerHeight / 2 - 100);
+  
+    Object.assign(alertElem.style, {
+      position: 'fixed',
+      zIndex: 3000,
+      left: `${x}px`,
+      top: `${y}px`
+    });
   
     document.body.appendChild(alertElem);
+    setTimeout(() => alertElem.classList.add('hidden'), 4000);
+    setTimeout(() => alertElem.remove(), 6000);
+  };
   
-    setTimeout(() => {
-      alertElem.classList.add('hidden');
-    }, 4000);
-  
-    setTimeout(() => {
-      document.body.removeChild(alertElem);
-    }, 6000);
-  }
 
 
   const checkWebsite = async () =>{

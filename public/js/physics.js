@@ -1,7 +1,7 @@
 import RAPIER from 'https://cdn.skypack.dev/@dimforge/rapier2d-compat';
 
 export default async function run_simulation() {
-    let groundBody, leftWallBody, rightWallBody;
+    let textArea, groundBody, leftWallBody, rightWallBody;
     await RAPIER.init();
     const scaleFactor = 50;
     let gravity = new RAPIER.Vector2(0.0, -9.81 * scaleFactor);
@@ -22,6 +22,12 @@ export default async function run_simulation() {
         const width = window.innerWidth;
         const height = window.innerHeight;
 
+        //Text area
+        textArea = world.createRigidBody(
+            RAPIER.RigidBodyDesc.fixed().setTranslation(width/2, -height + border)
+        );
+        world.createCollider(RAPIER.ColliderDesc.cuboid(width/10, 50), textArea);
+
         // Ground
         groundBody = world.createRigidBody(
             RAPIER.RigidBodyDesc.fixed().setTranslation(0, -height + border)
@@ -30,13 +36,13 @@ export default async function run_simulation() {
 
         // Left Wall
         leftWallBody = world.createRigidBody(
-            RAPIER.RigidBodyDesc.fixed().setTranslation(-border, 0)
+            RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0)
         );
         world.createCollider(RAPIER.ColliderDesc.cuboid(border, height), leftWallBody);
 
         // Right Wall
         rightWallBody = world.createRigidBody(
-            RAPIER.RigidBodyDesc.fixed().setTranslation(width + border, 0)
+            RAPIER.RigidBodyDesc.fixed().setTranslation(width - border, 0)
         );
         world.createCollider(RAPIER.ColliderDesc.cuboid(border, height), rightWallBody);
     };
@@ -70,7 +76,7 @@ export default async function run_simulation() {
     const statusElementObserver = new MutationObserver((mutationsList) => {
         const text = statusElement.textContent;
         if (text.indexOf("are getting married") !== -1) {
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < Math.floor(window.innerWidth/200); i++) {
                 addCharacter('💖');
             }
         }
@@ -84,7 +90,7 @@ export default async function run_simulation() {
                 if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('alert')) {
                     const text = node.textContent;
                     if (text.indexOf("not getting married") !== -1) {
-                        for (let i = 0; i < 10; i++) {
+                        for (let i = 0; i < Math.floor(window.innerWidth/200); i++) {
                             addCharacter('💔');
                         }
                     }
@@ -101,7 +107,7 @@ export default async function run_simulation() {
         RAPIER.RigidBodyDesc.newDynamic().setTranslation(0, 0)
     );
     let cursorColliderDesc = new RAPIER.ColliderDesc(
-        new RAPIER.Cuboid(30, 30)
+        new RAPIER.Cuboid(20, 20)
     ).setTranslation(0, 0);
     const cursorCollider = world.createCollider(cursorColliderDesc, cursorBody);
 
@@ -178,6 +184,51 @@ export default async function run_simulation() {
                 curr.position.y = -el.yLoc;
                 curr.rotation = el.rotation;
                 curr.pivot.set(0, 0);
+            }
+        });
+    }
+
+    //Use for debugging
+    function renderTest(world, ColliderMap) {
+        graphic.clear();
+    
+        ColliderMap.forEach((el) => {
+            if (el.type === "BALL") {
+                graphic.beginFill(0x0000ff, 0.5); // blue
+                graphic.drawCircle(el.xLoc, -el.yLoc, el.rSize);
+                graphic.endFill();
+            }
+    
+            if (el.type === "CUBE") {
+                const x = el.xLoc;
+                const y = -el.yLoc;
+                const w = el.xSize * 2;
+                const h = el.ySize * 2;
+                const angle = el.rotation;
+    
+                // Calculate corners of the rotated rectangle
+                const cx = x;
+                const cy = y;
+                const cos = Math.cos(angle);
+                const sin = Math.sin(angle);
+    
+                const corners = [
+                    [-w / 2, -h / 2],
+                    [w / 2, -h / 2],
+                    [w / 2, h / 2],
+                    [-w / 2, h / 2],
+                ].map(([dx, dy]) => ({
+                    x: cx + dx * cos - dy * sin,
+                    y: cy + dx * sin + dy * cos,
+                }));
+    
+                graphic.beginFill(0xff0000, 0.3); // red
+                graphic.moveTo(corners[0].x, corners[0].y);
+                for (let i = 1; i < corners.length; i++) {
+                    graphic.lineTo(corners[i].x, corners[i].y);
+                }
+                graphic.closePath();
+                graphic.endFill();
             }
         });
     }
