@@ -110,13 +110,6 @@ router.get('/check', async (req, res) => {
   }
 });
 
-router.get('/testurl', async (req, res) => {
-    const { url } = req.query;
-    var exists = await urlExists(url)
-    console.log(exists)
-
-});
-
 router.get('', (req, res) => {
   const { bride, groom } = getRandomCouple();
   res.render('index', {
