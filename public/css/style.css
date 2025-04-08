@@ -2,8 +2,8 @@
 
 /* Color Constants */
 :root {
-  --primary-pink: #2251c7;
-  --secondary-pink: #18388a;
+  --primary-blue: #2251c7;
+  --secondary-blue: #18388a;
   --alert-bg: rgba(255, 237, 186, 0.9);
   --alert-text: #000000;
   --loading-bg: #f8f8f5;
@@ -21,10 +21,10 @@ html, body {
   overflow: hidden;
   display: block;
   margin: auto;
+  font-family: "Source Code Pro", monospace; /* Ensuring all elements inherit this font */
 }
 
 body {
-  font-family: "Source Code Pro";
   text-align: center;
   padding: 2rem;
   max-width: 800px;
@@ -33,7 +33,7 @@ body {
 }
 
 h3 {
-  color: var(--primary-pink);
+  color: var(--primary-blue);
   font-size: 2rem;
   margin-bottom: 2rem;
 }
@@ -52,7 +52,7 @@ img {
 
 /* Utility Classes */
 .search-button {
-  background: var(--primary-pink);
+  background: var(--primary-blue);
   color: var(--white);
   font-family: "Source Code Pro";
   border: none;
@@ -68,16 +68,20 @@ img {
 
 .search-button:hover {
   transform: scale(1.1);
-  background: var(--secondary-pink);
+  background: var(--secondary-blue);
 }
 
 .result-box {
   margin: 2rem auto;
   padding: 1rem;
-  border: 3px dashed var(--primary-pink);
+  border: 3px dashed var(--primary-blue);
   border-radius: 15px;
   max-width: 500px;
   z-index: 10;
+  word-wrap: break-word; 
+  overflow-wrap: break-word;
+  word-break: break-word; 
+  white-space: normal; 
 }
 
 a {
@@ -95,6 +99,8 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
   touch-action: none;
 }
@@ -181,12 +187,14 @@ canvas {
   color: var(--info-link);
   background: none;
   border: none;
+  font-family: "Source Code Pro", monospace;
 }
 
 .info-link:hover {
   color: var(--info-link-hover);
   background: none;
   border: none;
+  font-family: "Source Code Pro", monospace;
 }
 
 .info-response {
@@ -196,19 +204,28 @@ canvas {
 
 /* Mobile Styles */
 @media (max-width: 600px) {
+
+  canvas {
+    width: 100vw;
+    height: 100vh;
+  }
+  
   body {
-    padding: 1rem;
-    overflow-x: hidden;
+    text-align: center;
+    padding: 2rem;
+    max-width: 100%;
+    margin: 0 auto;
     z-index: 1;
+    box-sizing: border-box;
   }
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .search-button {
     padding: 0.8rem 1.5rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .result-box {

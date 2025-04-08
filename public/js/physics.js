@@ -13,6 +13,9 @@ export default async function run_simulation() {
     await app.init({ background: '#f8f8f5', resizeTo: window });
     document.body.appendChild(app.canvas);
 
+    PIXI.Assets.load('/img/drawn-color-heart.png')
+    PIXI.Assets.load('/img/drawn-color-broken-heart.png')
+
     const createWallsAndGround = () => {
         if (groundBody) world.removeRigidBody(groundBody);
         if (leftWallBody) world.removeRigidBody(leftWallBody);
@@ -26,7 +29,7 @@ export default async function run_simulation() {
         textArea = world.createRigidBody(
             RAPIER.RigidBodyDesc.fixed().setTranslation(width/2, -height + border)
         );
-        world.createCollider(RAPIER.ColliderDesc.cuboid(width/10, 50), textArea);
+        world.createCollider(RAPIER.ColliderDesc.cuboid(width/4, 50), textArea);
 
         // Ground
         groundBody = world.createRigidBody(
@@ -52,7 +55,7 @@ export default async function run_simulation() {
 
     const heartRad = 16.0;
 
-    const addCharacter = (c) => {
+    const addHeart = (heartType) => {
         let x = window.innerWidth * Math.random();
         let y = 63;
         let bodyDesc = RAPIER.RigidBodyDesc.dynamic()
@@ -63,21 +66,26 @@ export default async function run_simulation() {
         let collider = world.createCollider(colliderDesc, body);
         
         addCollider(RAPIER, world, collider);
+    
+        // Choose the png based on the heart type.
+        const spriteSrc = heartType === 'full' ? '/img/drawn-color-heart.png' : '/img/drawn-color-broken-heart.png';
+        const heartSprite = PIXI.Sprite.from(spriteSrc);
+        heartSprite.anchor.set(0.5);
 
-        const heartText = new PIXI.Text(c, new PIXI.TextStyle({
-            fontSize: 28,
-        }));
-        heartText.anchor.set(0.5);
-        sprites.push(heartText);
-        app.stage.addChild(heartText);
+        heartSprite.width = 35;
+        heartSprite.height = 35;
+
+        sprites.push(heartSprite);
+        app.stage.addChild(heartSprite);
     };
+    
 
     const statusElement = document.getElementById('status');
     const statusElementObserver = new MutationObserver((mutationsList) => {
         const text = statusElement.textContent;
         if (text.indexOf("are getting married") !== -1) {
             for (let i = 0; i < Math.floor(window.innerWidth/200); i++) {
-                addCharacter('💖');
+                addHeart('full');
             }
         }
     });
@@ -91,7 +99,7 @@ export default async function run_simulation() {
                     const text = node.textContent;
                     if (text.indexOf("not getting married") !== -1) {
                         for (let i = 0; i < Math.floor(window.innerWidth/200); i++) {
-                            addCharacter('💔');
+                            addHeart('broken');
                         }
                     }
                 }
@@ -120,7 +128,7 @@ export default async function run_simulation() {
     });
 
     document.addEventListener("touchmove", (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         const touch = e.touches[0];
         goal = {
             x: touch.clientX,
@@ -275,7 +283,7 @@ export default async function run_simulation() {
     // Game loop
     function update() {
         graphic.clear();
-        render(world, ColliderMap);
+        renderTest(world, ColliderMap);
         updatePositions(world);
         world.step();
         requestAnimationFrame(update);

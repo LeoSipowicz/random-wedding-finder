@@ -16,7 +16,9 @@ app.use(
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
         "script-src": ["'self'","cdn.skypack.dev","pixijs.download","'unsafe-eval'"],
-        "img-src": ["'self'"],
+        "worker-src": ["'self'","blob:"],
+        "connect-src": ["'self'","data:"],
+        "img-src": ["'self'", "data:"],
       },
     },
   })

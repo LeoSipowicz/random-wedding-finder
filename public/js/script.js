@@ -61,7 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
 
       if (data.result) {
-        resultContainer.innerHTML = `<a href="${data.result}" target="_blank">${data.result}</a>`;
+        const url = new URL(data.result);
+        const hostname = url.hostname;
+        const pathname = url.pathname.endsWith('/') ? url.pathname.slice(0, -1) : url.pathname;
+        resultContainer.innerHTML = `<a href="${data.result}" target="_blank">${hostname + pathname}</a>`;
         statusEl.textContent = `${bride} and ${groom} are getting married!`;
         headerText.style.display = 'none';
         statusEl.style['font-size']= '1.5em'
