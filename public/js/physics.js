@@ -283,7 +283,7 @@ export default async function run_simulation() {
     // Game loop
     function update() {
         graphic.clear();
-        renderTest(world, ColliderMap);
+        render(world, ColliderMap);
         updatePositions(world);
         world.step();
         requestAnimationFrame(update);
