@@ -22,8 +22,8 @@ export default async function run_simulation() {
         if (rightWallBody) world.removeRigidBody(rightWallBody);
 
         const border = 10;
-        const width = window.innerWidth;
-        const height = window.innerHeight;
+        const width = app.screen.width;
+        const height = app.screen.height;
 
         //Text area
         textArea = world.createRigidBody(

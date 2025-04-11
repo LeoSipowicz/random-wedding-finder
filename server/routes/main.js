@@ -89,31 +89,29 @@ router.get('/random', (req, res) => {
 
 router.get('/check', async (req, res) => {
   const { bride, groom } = req.query;
-  if (!bride || !groom) {
-    return res.status(400).json({ error: 'Missing bride or groom' });
-  }
-  if (!BABYNAMES.girls.includes(bride) || !BABYNAMES.boys.includes(groom)) {
-    return res.status(400).json({ error: 'Invalid bride or groom name' });
-  }
-  const urlList = getUrlList(bride, groom);
-  const result = await getExistingUrl(urlList);
-  res.json({ result });
-});
 
-router.get('/check', async (req, res) => {
-  try {
-    const { bride, groom, result } = await findWorkingCoupleSite();
-    res.json({ bride, groom, result });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: 'Error finding wedding site' });
+  if (bride && groom) {
+    if (!BABYNAMES.girls.includes(bride) || !BABYNAMES.boys.includes(groom)) {
+      return res.status(400).json({ error: 'Invalid bride or groom name' });
+    }
+    const urlList = getUrlList(bride, groom);
+    const result = await getExistingUrl(urlList);
+    return res.json({ result });
+  } else {
+    try {
+      const { bride, groom, result } = await findWorkingCoupleSite();
+      res.json({ bride, groom, result });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: 'Error finding wedding site' });
+    }
   }
 });
 
 router.get('', (req, res) => {
   const { bride, groom } = getRandomCouple();
   res.render('index', {
-    locals: { title: 'Wedding Checker' },
+    locals: { title: 'Wedding Checker', description: 'Find a random couples website to explore!!' },
     bride,
     groom,
     result: null

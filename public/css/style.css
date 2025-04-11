@@ -115,6 +115,10 @@ canvas {
   pointer-events: auto;
 }
 
+.capitalize-name {
+  text-transform: capitalize;
+}
+
 /* Loading and Spinner */
 .loading-indicator {
   font-size: 2rem;
