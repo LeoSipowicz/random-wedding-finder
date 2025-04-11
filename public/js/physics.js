@@ -23,7 +23,12 @@ export default async function run_simulation() {
 
         const border = 10;
         const width = app.screen.width;
-        const height = app.screen.height;
+        const definedHeight = app.screen.height;
+
+        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+        const mobileOffset = isMobile ? 30 : 0; // Tune this number as needed
+    
+        const height = definedHeight - mobileOffset;
 
         //Text area
         textArea = world.createRigidBody(
