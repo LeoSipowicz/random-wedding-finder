@@ -26,7 +26,7 @@ export default async function run_simulation() {
         const definedHeight = app.screen.height;
 
         const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-        const mobileOffset = isMobile ? 30 : 0; // Tune this number as needed
+        const mobileOffset = isMobile ? 60 : 0; // Tune this number as needed
     
         const height = definedHeight - mobileOffset;
 
