@@ -111,7 +111,7 @@ router.get('/check', async (req, res) => {
 router.get('', (req, res) => {
   const { bride, groom } = getRandomCouple();
   res.render('index', {
-    locals: { title: 'Find a random wedding...', description: 'Find a random couples website to explore!!' },
+    locals: { title: 'Find a random wedding...', description: 'Find a random couple\'s website to explore!!' },
     bride,
     groom,
     result: null
